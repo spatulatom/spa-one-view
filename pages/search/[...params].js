@@ -1,7 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useEffect, useState,useContext } from 'react';
 import Link from 'next/link';
+import NotificationContext from '@/store/notification-context';
 
 export default function params() {
   const [details, setDetails] = useState('');
@@ -10,6 +11,8 @@ export default function params() {
   const [error, setError] = useState('');
   const router = useRouter();
   const filterData = router.query.params;
+
+  const notificationCtx = useContext(NotificationContext);
 
   useEffect(() => {
     console.log('FILTER', filterData);
@@ -58,6 +61,7 @@ export default function params() {
   function modalHandler(arg) {
     return () => {
       console.log(arg);
+      notificationCtx.showModal(arg)
     };
   }
 
@@ -117,7 +121,7 @@ export default function params() {
             </thead>
             <tbody>
               {data.map((item) => (
-                <tr class="bg-slate-400 h-10" onClick={modalHandler(item.id)}>
+                <tr class="bg-slate-400 h-10" onClick={modalHandler(item)}>
                   <td class="border border-slate-700 text-center ">
                     {item.id}
                   </td>
