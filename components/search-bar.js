@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -6,18 +6,19 @@ function SearchBar() {
   const [input, setInput] = useState('');
   const router = useRouter();
 
-  useEffect(()=>{
-    if(!input){
-        router.push('/')
+  useEffect(() => {
+    if (!input) {
+      router.push('/search/per_page=5&page=1');
     }
-  },[])
+  }, []);
 
   function onChangeHandler(e) {
-    if(!e.target.value){
-        router.push('/')
+    if (!e.target.value) {
+      router.push('/search/per_page=5&page=1');
+    } else {
+      setInput(e.target.value);
+      router.push('/search/id=' + e.target.value);
     }
-    setInput(e.target.value);
-    // router.push('search/id'+e.target.value)
   }
 
   //   to prevent letter e, E from the input type="number"
@@ -25,10 +26,10 @@ function SearchBar() {
     return ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();
   }
 
-  function submitHandler(e){
+  function submitHandler(e) {
     e.preventDefault();
-    console.log('SUBMIT')
-    router.push('/search/id='+ input)
+    console.log('SUBMIT');
+    router.push('/search/id=' + input);
   }
 
   return (
