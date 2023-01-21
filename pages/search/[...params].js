@@ -1,27 +1,27 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import { useEffect, useState,useContext } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import Link from 'next/link';
-import NotificationContext from '@/store/notification-context';
+import ContextObject from '@/store/modal-data-context';
 
 export default function params() {
-  const [details, setDetails] = useState('');
+  const [details, setDetails] = useState(null);
   const [data, setData] = useState('');
   const [loading, setLoading] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
-  const filterData = router.query.params;
+  const queryParams = router.query.params;
 
-  const notificationCtx = useContext(NotificationContext);
+  const contextObject = useContext(ContextObject);
 
   useEffect(() => {
-    console.log('FILTER', filterData);
-    // setQuery(filterData);
-    getData(filterData);
-  }, [filterData]);
+    console.log('FILTER', queryParams);
+    // setQuery(queryParams);
+    getData(queryParams);
+  }, [queryParams]);
 
   async function getData(arg = 'per_page=5&page=1') {
-    console.log('RUN')
+    console.log('RUN');
     setLoading(true);
 
     try {
@@ -36,7 +36,7 @@ export default function params() {
         if (data.page) {
           setDetails({ page: data.page, pages: data.total_pages });
         } else {
-          setDetails({});
+          setDetails(null);
         }
         setData(data.data);
         setError('');
@@ -61,11 +61,12 @@ export default function params() {
   function modalHandler(arg) {
     return () => {
       console.log(arg);
-      notificationCtx.showModal(arg)
+      contextObject.showModal(arg);
     };
   }
-
-  function activeLink() {
+ 
+  // pagination logic: 
+  function paginationLinks() {
     const { page, pages } = details;
     if (page === 1) {
       return (
@@ -121,7 +122,11 @@ export default function params() {
             </thead>
             <tbody>
               {data.map((item) => (
-                <tr class="h-20" style={{backgroundColor:`${item.color}`}} onClick={modalHandler(item)}>
+                <tr
+                  class="h-20"
+                  style={{ backgroundColor: `${item.color}` }}
+                  onClick={modalHandler(item)}
+                >
                   <td class="border border-slate-700 text-center ">
                     {item.id}
                   </td>
@@ -135,7 +140,10 @@ export default function params() {
               ))}
             </tbody>
           </table>
-          {details.constructor === Object && activeLink()}
+          {/* Only show pagination links if 'details' are an object - otherwise
+           details are set to 'null' when we only get a single item data and we dont need 
+           pagination then:  */}
+          {details.constructor === Object && paginationLinks()}
         </main>
       </div>
     );

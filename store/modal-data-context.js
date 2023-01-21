@@ -1,12 +1,12 @@
 import { createContext, useState, useEffect } from 'react';
 
-const NotificationContext = createContext({
+const ContextObject = createContext({
   modalData: null, 
   showModal: function (data) {},
   closeModal: function () {},
 });
 
-export function NotificationContextProvider(props) {
+export function ContextObjectProvider(props) {
   const [activeModal, setActiveModal] = useState();
 
   
@@ -26,10 +26,10 @@ export function NotificationContextProvider(props) {
   };
 
   return (
-    <NotificationContext.Provider value={context}>
+    <ContextObject.Provider value={context}>
       {props.children}
-    </NotificationContext.Provider>
+    </ContextObject.Provider>
   );
 }
 
-export default NotificationContext;
+export default ContextObject;

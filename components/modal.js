@@ -1,21 +1,16 @@
 import React, { useContext } from 'react';
-import NotificationContext from '../store/notification-context';
+import ContextObject from '../store/modal-data-context';
 
-export default function modal() {
-  const notificationCtx = useContext(NotificationContext);
-  const activeModal = notificationCtx.modalData;
-  function handler() {
-    console.log('CLICK', activeModal.color);
-
-    notificationCtx.closeModal();
-  }
+export default function Modal() {
+  const contextObject = useContext(ContextObject);
+  const activeModal = contextObject.modalData;
 
   return (
     activeModal && (
       <div>
         <div
           class="fixed inset-0 z-9 bg-black bg-opacity-50 duration-1000 transition-opacity"
-          onClick={handler}
+          onClick={contextObject.closeModal}
         >
           <div class="flex relative z-20 min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
             {/* stopPropagation prevents child elements from inheriting parent events like onClick */}
@@ -38,9 +33,19 @@ export default function modal() {
                     </h3>
                     <div class="mt-2">
                       <p class="text-sm text-gray-500">
-                        Are you sure you want to deactivate your account? All of
-                        your data will be permanently removed. This action
-                        cannot be undone.
+                        Item id: {activeModal.id}
+                      </p>
+                      <p class="text-sm text-gray-500">
+                        Item name: {activeModal.name}
+                      </p>
+                      <p class="text-sm text-gray-500">
+                        Item year: {activeModal.year}
+                      </p>
+                      <p class="text-sm text-gray-500">
+                        Item color: {activeModal.color}
+                      </p>
+                      <p class="text-sm text-gray-500">
+                        Item pantone value: {activeModal.pantone_value}
                       </p>
                     </div>
                   </div>
@@ -48,11 +53,11 @@ export default function modal() {
               </div>
               <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                 <button
-                  onClick={notificationCtx.closeModal}
+                  onClick={contextObject.closeModal}
                   type="button"
                   class="inline-flex w-full justify-center rounded-md border border-transparent bg-gray-700 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
                 >
-                  Deactivate
+                  Close
                 </button>
               </div>
             </div>
