@@ -15,7 +15,7 @@ export default function Home() {
 export const getServerSideProps = async () => {
   return {
     redirect: {
-      destination: '/search/per_page=5&page=1',
+      destination: '/search/',
       permanent: true,
     },
   };

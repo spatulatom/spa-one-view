@@ -15,11 +15,12 @@ export default function params() {
   const contextObject = useContext(ContextObject);
 
   useEffect(() => {
+    if(queryParams)
     getData(queryParams);
   }, [queryParams]);
 
-  async function getData(arg = 'per_page=5&page=1') {
-    console.log('RUN');
+  async function getData(arg) {
+    console.log('RUN', queryParams);
     setLoading(true);
 
     try {

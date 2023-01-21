@@ -6,6 +6,7 @@ function SearchBar() {
   const router = useRouter();
 
   useEffect(() => {
+    console.log('run2')
     if (!input) {
       router.push('/search/per_page=5&page=1');
     }
