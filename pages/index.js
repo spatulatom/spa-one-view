@@ -12,7 +12,7 @@ export default function Home() {
 // and we want our url to reflect our content on the page so we can copy/paste it
 // to another browser:
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   return {
     redirect: {
       destination: '/search/per_page=5&page=1',

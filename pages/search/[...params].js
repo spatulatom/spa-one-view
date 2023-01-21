@@ -15,8 +15,6 @@ export default function params() {
   const contextObject = useContext(ContextObject);
 
   useEffect(() => {
-    console.log('FILTER', queryParams);
-    // setQuery(queryParams);
     getData(queryParams);
   }, [queryParams]);
 
@@ -31,7 +29,7 @@ export default function params() {
         },
       });
       const data = await response.json();
-      console.log('FULL', data);
+
       if (response.ok) {
         if (data.page) {
           setDetails({ page: data.page, pages: data.total_pages });
@@ -55,12 +53,11 @@ export default function params() {
       setLoading(false);
     }
   }
-  console.log('DATA', data instanceof Array, data);
-  console.log('DETAILS', details);
 
+  // to pass an argument into the even handler we this to construct such
+  // that it returns a function:
   function modalHandler(arg) {
     return () => {
-      console.log(arg);
       contextObject.showModal(arg);
     };
   }
