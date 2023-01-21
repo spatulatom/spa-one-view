@@ -11,4 +11,12 @@ export default function Home() {
 // we can not display any products here since Home url is always '/'
 // and we want our url to reflect our content on the page so we can copy/paste it
 // to another browser:
-// the redirect is done in file: next.confg.js
+
+export const getServerSideProps = async () => {
+  return {
+    redirect: {
+      destination: '/search/per_page=5&page=1',
+      permanent: true,
+    },
+  };
+};

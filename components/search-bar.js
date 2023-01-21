@@ -6,15 +6,18 @@ function SearchBar() {
   const router = useRouter();
 
   function onChangeHandler(e) {
+    // when we have cleard input field
     if (!e.target.value) {
       router.push('/search/per_page=5&page=1');
-    } else {
+    }
+    // when we have numer in the input field
+    else {
       setInput(e.target.value);
       router.push('/search/id=' + e.target.value);
     }
   }
 
-  //   to prevent letter e, E from the input type="number"
+  // to prevent letter e, E from the input field type="number"
   function onKeyDownHandler(e) {
     return ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();
   }

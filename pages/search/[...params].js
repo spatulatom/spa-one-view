@@ -14,13 +14,13 @@ export default function params() {
 
   const contextObject = useContext(ContextObject);
 
+  // run useEffect on first rednder && when queryParams change
   useEffect(() => {
-    if(queryParams)
-    getData(queryParams);
+    if (queryParams) getData(queryParams);
   }, [queryParams]);
 
-  async function getData(arg = '/search/per_page=5&page=1') {
-    console.log('RUN', queryParams);
+  async function getData(arg) {
+    console.log('RUN');
     setLoading(true);
 
     try {
@@ -32,15 +32,21 @@ export default function params() {
       const data = await response.json();
 
       if (response.ok) {
+        // when we fetch object with more than one item we
         if (data.page) {
           setDetails({ page: data.page, pages: data.total_pages });
-        } else {
+        }
+        // when we fetch idividual item we dont setDetails
+        else {
           setDetails(null);
         }
+        // setData for both object with items && individula item
         setData(data.data);
         setError('');
         setLoading(false);
-      } else {
+      }
+      // when response that is not 2XX and not 5XX
+      else {
         setData('');
         setError(
           data.message ||
@@ -49,13 +55,14 @@ export default function params() {
         setLoading(false);
       }
     } catch (err) {
+      // when respones is 5XX
       setData('');
       setError('Something went wrong with the server! Try again in a minute.');
       setLoading(false);
     }
   }
 
-  // to pass an argument into the even handler we this to construct such
+  // to pass an argument into the even handler we this to construct it way such
   // that it returns a function:
   function modalHandler(arg) {
     return () => {
@@ -102,18 +109,30 @@ export default function params() {
     }
   }
 
-  if (!data && loading) {
+  // when redirected from home page for split second we have
+  if (!data && !loading && !error) {
     return (
       <div className="text-center my-16">
         <i class="fa-solid fa-spinner fa-spin fa-2xl text-white"></i>
       </div>
     );
+  }
+  // when fetching
+  else if (!data && loading) {
+    return (
+      <div className="text-center my-16">
+        <i class="fa-solid fa-spinner fa-spin fa-2xl text-white"></i>
+      </div>
+    );
+    // when fetching finished with the error
   } else if (!data && !loading && error) {
     return (
       <div class="flex justify-center my-16">
         <p class="text p-4 bg-white max-w-lg">{error}</p>
       </div>
     );
+
+  // when we fetch sussesfully object with items
   } else if (data.constructor == Array) {
     return (
       <div class="bg-slate-900 py-8">
@@ -145,6 +164,8 @@ export default function params() {
         {details.constructor === Object && paginationLinks()}
       </div>
     );
+
+  // when fetched successfully individual item
   } else {
     return (
       <div class="bg-slate-900 py-16">
