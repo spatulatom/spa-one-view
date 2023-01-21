@@ -121,7 +121,7 @@ export default function params() {
             </thead>
             <tbody>
               {data.map((item) => (
-                <tr class="bg-slate-400 h-10" onClick={modalHandler(item)}>
+                <tr class="h-20" style={{backgroundColor:`${item.color}`}} onClick={modalHandler(item)}>
                   <td class="border border-slate-700 text-center ">
                     {item.id}
                   </td>
@@ -152,7 +152,7 @@ export default function params() {
               </tr>
             </thead>
             <tbody>
-              <tr class="bg-slate-400 h-20">
+              <tr class={`bg-[${data.color}] h-20`}>
                 <td class="border border-slate-700 text-center ">{data.id}</td>
                 <td class="border border-slate-700 text-center">{data.name}</td>
                 <td class="border border-slate-700 text-center">{data.year}</td>
