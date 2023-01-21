@@ -9,7 +9,7 @@ export default function Modal() {
     activeModal && (
       <div>
         <div
-          class="fixed inset-0 z-9 bg-gray-500 bg-opacity-50 duration-1000 transition-opacity"
+          class="fixed inset-0 z-9 bg-black bg-opacity-50 duration-1000 transition-opacity"
           onClick={contextObject.closeModal}
         >
           <div class="flex relative z-20 min-h-full items-end justify-center text-center sm:items-center sm:p-0">

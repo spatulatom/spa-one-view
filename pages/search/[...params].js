@@ -19,7 +19,7 @@ export default function params() {
     getData(queryParams);
   }, [queryParams]);
 
-  async function getData(arg) {
+  async function getData(arg = '/search/per_page=5&page=1') {
     console.log('RUN', queryParams);
     setLoading(true);
 
