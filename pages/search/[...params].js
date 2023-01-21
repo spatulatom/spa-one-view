@@ -7,8 +7,8 @@ import ContextObject from '@/store/modal-data-context';
 export default function params() {
   const [details, setDetails] = useState(null);
   const [data, setData] = useState('');
-  const [loading, setLoading] = useState('');
-  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const router = useRouter();
   const queryParams = router.query.params;
 
@@ -45,7 +45,7 @@ export default function params() {
         setData('');
         setError(
           data.message ||
-            'No items for your search! We only have 12 items. Try different number!'
+            'Sorry, no item for your search! We only have 12 items. Try different number!'
         );
         setLoading(false);
       }
@@ -64,8 +64,8 @@ export default function params() {
       contextObject.showModal(arg);
     };
   }
- 
-  // pagination logic: 
+
+  // pagination logic:
   function paginationLinks() {
     const { page, pages } = details;
     if (page === 1) {
@@ -105,69 +105,71 @@ export default function params() {
   }
 
   if (!data && loading) {
-    return <div>Loading</div>;
+    return (
+      <div className="text-center my-16">
+        <i class="fa-solid fa-spinner fa-spin fa-2xl text-white"></i>
+      </div>
+    );
   } else if (!data && !loading && error) {
-    return <div>{error}</div>;
+    return (
+      <div class="flex justify-center my-16">
+        <p class="text p-4 bg-white max-w-lg">{error}</p>
+      </div>
+    );
   } else if (data.constructor == Array) {
     return (
-      <div>
-        <main class="bg-slate-900 h-screen">
-          <table class="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
-            <thead>
-              <tr>
-                <th class="border border-slate-600 ">Product Id</th>
-                <th class="border border-slate-600 ">Product Name</th>
-                <th class="border border-slate-600 ">Product Year</th>
+      <div class="bg-slate-900 py-8">
+        <table class="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
+          <thead>
+            <tr>
+              <th class="border border-slate-600 ">Product Id</th>
+              <th class="border border-slate-600 ">Product Name</th>
+              <th class="border border-slate-600 ">Product Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((item) => (
+              <tr
+                class="h-12 md:h-20 "
+                style={{ backgroundColor: `${item.color}` }}
+                onClick={modalHandler(item)}
+              >
+                <td class="border border-slate-700 text-center ">{item.id}</td>
+                <td class="border border-slate-700 text-center">{item.name}</td>
+                <td class="border border-slate-700 text-center">{item.year}</td>
               </tr>
-            </thead>
-            <tbody>
-              {data.map((item) => (
-                <tr
-                  class="h-20"
-                  style={{ backgroundColor: `${item.color}` }}
-                  onClick={modalHandler(item)}
-                >
-                  <td class="border border-slate-700 text-center ">
-                    {item.id}
-                  </td>
-                  <td class="border border-slate-700 text-center">
-                    {item.name}
-                  </td>
-                  <td class="border border-slate-700 text-center">
-                    {item.year}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-          {/* Only show pagination links if 'details' are an object - otherwise
+            ))}
+          </tbody>
+        </table>
+        {/* Only show pagination links if 'details' are an object - otherwise
            details are set to 'null' when we only get a single item data and we dont need 
            pagination then:  */}
-          {details.constructor === Object && paginationLinks()}
-        </main>
+        {details.constructor === Object && paginationLinks()}
       </div>
     );
   } else {
     return (
-      <div>
-        <main class="bg-slate-900 h-screen">
-          <table class="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
-            <thead>
-              <tr>
-                <th class="border border-slate-600 ">Product Id</th>
-                <th class="border border-slate-600 ">Product Name</th>
-                <th class="border border-slate-600 ">Product Year</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class={`bg-[${data.color}] h-20`}>
-                <td class="border border-slate-700 text-center ">{data.id}</td>
-                <td class="border border-slate-700 text-center">{data.name}</td>
-                <td class="border border-slate-700 text-center">{data.year}</td>
-              </tr>
-            </tbody>
-          </table>
-        </main>
+      <div class="bg-slate-900 py-16">
+        <table class="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
+          <thead>
+            <tr>
+              <th class="border border-slate-600 ">Product Id</th>
+              <th class="border border-slate-600 ">Product Name</th>
+              <th class="border border-slate-600 ">Product Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="h-20"
+              style={{ backgroundColor: `${data.color}` }}
+              onClick={modalHandler(data)}
+            >
+              <td class="border border-slate-700 text-center ">{data.id}</td>
+              <td class="border border-slate-700 text-center">{data.name}</td>
+              <td class="border border-slate-700 text-center">{data.year}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     );
   }

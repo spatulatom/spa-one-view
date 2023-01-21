@@ -1,15 +1,13 @@
 import { createContext, useState, useEffect } from 'react';
 
 const ContextObject = createContext({
-  modalData: null, 
+  modalData: null,
   showModal: function (data) {},
   closeModal: function () {},
 });
 
 export function ContextObjectProvider(props) {
   const [activeModal, setActiveModal] = useState();
-
-  
 
   function showModalHandler(data) {
     setActiveModal(data);
@@ -20,9 +18,9 @@ export function ContextObjectProvider(props) {
   }
 
   const context = {
-    modalData: activeModal, // { title, message, status }
+    modalData: activeModal, // { id, color, etc }
     showModal: showModalHandler,
-    closeModal: closeModalHandler
+    closeModal: closeModalHandler,
   };
 
   return (
