@@ -1,4 +1,4 @@
- <a href="spa-one-view.vercel.app"><strong>View the deployed app on Vercel »</strong></a>
+ <a href="http://spa-one-view.vercel.app"><strong>View the deployed app on Vercel »</strong></a>
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
