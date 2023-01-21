@@ -23,7 +23,7 @@ Apart from React, the technology stack totally ups to you, the same applies to s
 - Extra requirement (optional):
 
 Please reflect pagination and filtering in the address URL, so users can copy and share the URL with each other.
-
+ -Redux/Context API or other state management library
 
 ## Getting Started
 
