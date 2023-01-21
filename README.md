@@ -5,7 +5,7 @@
   <p>
     'search items' is a React.js build with  Next.js Framework + Tailwind CSS  - this repository contains its source code
        <br />
-    <a href=""><strong>See the deployed app on Vercel »</strong></a>
+    <a href="spa-one-view.vercel.app"><strong>See the deployed app on Vercel »</strong></a>
     <br />
     <br />
    
