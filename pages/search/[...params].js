@@ -62,8 +62,7 @@ export default function params() {
     }
   }
 
-  // to pass an argument into the even handler we this to construct it way such
-  // that it returns a function:
+  // to pass an argument into the even handler it need to return a function
   function modalHandler(arg) {
     return () => {
       contextObject.showModal(arg);
@@ -132,7 +131,7 @@ export default function params() {
       </div>
     );
 
-  // when we fetch sussesfully object with items
+  // when we fetch sussesfully an object with items
   } else if (data.constructor == Array) {
     return (
       <div class="bg-slate-900 py-8">
@@ -165,7 +164,7 @@ export default function params() {
       </div>
     );
 
-  // when fetched successfully individual item
+  // when fetched successfully an individual item
   } else {
     return (
       <div class="bg-slate-900 py-16">
