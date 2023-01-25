@@ -19,3 +19,5 @@ export default function Document() {
     </Html>
   )
 }
+
+// adding typescript
