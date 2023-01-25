@@ -1,4 +1,4 @@
- <a href="http://spa-one-view.vercel.app"><strong>View the deployed app on Vercel »</strong></a>
+ 
 
  This repository contains React/Next.js app styled with Tailwind CSS.
  </br>
