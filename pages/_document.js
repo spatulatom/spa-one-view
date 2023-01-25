@@ -20,4 +20,4 @@ export default function Document() {
   )
 }
 
-// adding typescript
+// adding typescriptt
