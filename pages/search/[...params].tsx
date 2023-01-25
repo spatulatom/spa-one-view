@@ -2,7 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useContext } from 'react';
 import Link from 'next/link';
-import ContextObject from '@/store/modal-data-context';
+import ContextObject from '../../store/modal-data-context';
 
 export default function params() {
   const [details, setDetails] = useState(null);
