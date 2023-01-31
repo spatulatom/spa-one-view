@@ -4,6 +4,7 @@ interface contextObjectModel {
   showModal: (data: boolean) => void;
   closeModal: () => void;
 }
+// https://stackoverflow.com/questions/71948755/property-children-does-not-exist-on-type
 type Props = {
   children: React.ReactNode;
 };
