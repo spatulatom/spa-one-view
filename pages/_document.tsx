@@ -12,7 +12,7 @@ export default function Document() {
           referrerPolicy="no-referrer"
         />
       </Head>
-      <body class="bg-slate-900">
+      <body className="bg-slate-900">
         <Main />
         <NextScript />
       </body>
