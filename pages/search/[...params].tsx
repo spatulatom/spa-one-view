@@ -5,12 +5,20 @@ import Link from 'next/link';
 import ContextObject from '../../store/modal-data-context';
 
 export default function params() {
-  const [details, setDetails] = useState(null);
-  const [data, setData] = useState('');
+  type Item = {
+    color: string;
+    name: string;
+    year: string;
+    pantone_value: string;
+    id: string;
+  };
+
+  const [details, setDetails] = useState<{}[] | {} | null>(null);
+  const [data, setData] = useState<Item | Item[] | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const queryParams = router.query.params;
+  const queryParams: string | string[] | undefined = router.query.params;
 
   const contextObject = useContext(ContextObject);
 
@@ -19,7 +27,7 @@ export default function params() {
     if (queryParams) getData(queryParams);
   }, [queryParams]);
 
-  async function getData(arg) {
+  async function getData(arg: string | string[]) {
     console.log('RUN');
     setLoading(true);
 
@@ -47,7 +55,6 @@ export default function params() {
       }
       // when response that is not 2XX and not 5XX
       else {
-        setData('');
         setError(
           data.message ||
             'Sorry, no item for your search! We only have 12 items. Try different number!'
@@ -56,52 +63,53 @@ export default function params() {
       }
     } catch (err) {
       // when respones is 5XX
-      setData('');
+
       setError('Something went wrong with the server! Try again in a minute.');
       setLoading(false);
     }
   }
 
   // to pass an argument into the even handler it need to return a function
-  function modalHandler(arg) {
+  function modalHandler(item: any) {
     return () => {
-      contextObject.showModal(arg);
+      contextObject.showModal(item);
     };
   }
 
   // pagination logic:
   function paginationLinks() {
+    // if(details){
     const { page, pages } = details;
     if (page === 1) {
       return (
-        <div class="text-white flex space-x-4 justify-center mt-6">
+        <div className="text-white flex space-x-4 justify-center mt-6">
           <span>
-            <i class="text-gray-500 fa-solid fa-angles-left"></i>
+            <i className="text-gray-500 fa-solid fa-angles-left"></i>
           </span>
           <Link href="/search/per_page=5&page=2">
-            <i class="text-white fa-solid fa-angles-right"></i>
+            <i className="text-white fa-solid fa-angles-right"></i>
           </Link>
         </div>
       );
     } else if (page === pages) {
       return (
-        <div class="text-white flex space-x-4 justify-center mt-6">
+        <div className="text-white flex space-x-4 justify-center mt-6">
           <Link href="/search/per_page=5&page=2">
-            <i class="text-white fa-solid fa-angles-left"></i>
+            <i className="text-white fa-solid fa-angles-left"></i>
           </Link>
           <span>
-            <i class="text-gray-500 fa-solid fa-angles-right"></i>
+            <i className="text-gray-500 fa-solid fa-angles-right"></i>
           </span>
         </div>
       );
     } else {
       return (
-        <div class="text-white flex space-x-4 justify-center mt-6">
+        <div className="text-white flex space-x-4 justify-center mt-6">
           <Link href={`/search/per_page=5&page=${page - 1}`}>
-            <i class="text-white fa-solid fa-angles-left"></i>
+            <i className="text-white fa-solid fa-angles-left"></i>
           </Link>
           <Link href={`/search/per_page=5&page=${page + 1}`}>
-            <i class="text-white fa-solid fa-angles-right"></i>
+            <i className="text-white fa-solid fa-angles-right"></i>
           </Link>
         </div>
       );
@@ -112,7 +120,7 @@ export default function params() {
   if (!data && !loading && !error) {
     return (
       <div className="text-center my-16">
-        <i class="fa-solid fa-spinner fa-spin fa-2xl text-white"></i>
+        <i className="fa-solid fa-spinner fa-spin fa-2xl text-white"></i>
       </div>
     );
   }
@@ -120,39 +128,45 @@ export default function params() {
   else if (!data && loading) {
     return (
       <div className="text-center my-16">
-        <i class="fa-solid fa-spinner fa-spin fa-2xl text-white"></i>
+        <i className="fa-solid fa-spinner fa-spin fa-2xl text-white"></i>
       </div>
     );
     // when fetching finished with the error
-  } else if (!data && !loading && error) {
+  } else if (error) {
     return (
-      <div class="flex justify-center my-16">
-        <p class="text p-4 bg-white max-w-lg">{error}</p>
+      <div className="flex justify-center my-16">
+        <p className="text p-4 bg-white max-w-lg">{error}</p>
       </div>
     );
 
-  // when we fetch sussesfully an object with items
-  } else if (data.constructor == Array) {
+    // when we fetch sussesfully an object with items
+  } else if (data && data.constructor == Array) {
     return (
-      <div class="bg-slate-900 py-8">
-        <table class="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
+      <div className="bg-slate-900 py-8">
+        <table className="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
           <thead>
             <tr>
-              <th class="border border-slate-600 ">Product Id</th>
-              <th class="border border-slate-600 ">Product Name</th>
-              <th class="border border-slate-600 ">Product Year</th>
+              <th className="border border-slate-600 ">Product Id</th>
+              <th className="border border-slate-600 ">Product Name</th>
+              <th className="border border-slate-600 ">Product Year</th>
             </tr>
           </thead>
           <tbody>
             {data.map((item) => (
               <tr
-                class="h-12 md:h-20 "
+                className="h-12 md:h-20 "
                 style={{ backgroundColor: `${item.color}` }}
                 onClick={modalHandler(item)}
               >
-                <td class="border border-slate-700 text-center ">{item.id}</td>
-                <td class="border border-slate-700 text-center">{item.name}</td>
-                <td class="border border-slate-700 text-center">{item.year}</td>
+                <td className="border border-slate-700 text-center ">
+                  {item.id}
+                </td>
+                <td className="border border-slate-700 text-center">
+                  {item.name}
+                </td>
+                <td className="border border-slate-700 text-center">
+                  {item.year}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -160,35 +174,43 @@ export default function params() {
         {/* Only show pagination links if 'details' are an object - otherwise
            details are set to 'null' when we only get a single item data and we dont need 
            pagination then:  */}
-        {details.constructor === Object && paginationLinks()}
+        {details && details.constructor === Object && paginationLinks()}
       </div>
     );
 
-  // when fetched successfully an individual item
-  } else {
+    // when fetched successfully an individual item
+  } else if (data && data.constructor === Object) {
     return (
-      <div class="bg-slate-900 py-16">
-        <table class="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
+      <div className="bg-slate-900 py-16">
+        <table className="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
           <thead>
             <tr>
-              <th class="border border-slate-600 ">Product Id</th>
-              <th class="border border-slate-600 ">Product Name</th>
-              <th class="border border-slate-600 ">Product Year</th>
+              <th className="border border-slate-600 ">Product Id</th>
+              <th className="border border-slate-600 ">Product Name</th>
+              <th className="border border-slate-600 ">Product Year</th>
             </tr>
           </thead>
           <tbody>
             <tr
-              class="h-20"
+              className="h-20"
               style={{ backgroundColor: `${data.color}` }}
               onClick={modalHandler(data)}
             >
-              <td class="border border-slate-700 text-center ">{data.id}</td>
-              <td class="border border-slate-700 text-center">{data.name}</td>
-              <td class="border border-slate-700 text-center">{data.year}</td>
+              <td className="border border-slate-700 text-center ">
+                {data.id}
+              </td>
+              <td className="border border-slate-700 text-center">
+                {data.name}
+              </td>
+              <td className="border border-slate-700 text-center">
+                {data.year}
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     );
+  } else {
+    return <div>kkkk</div>;
   }
 }

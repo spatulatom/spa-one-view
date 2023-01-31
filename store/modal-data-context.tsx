@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react';
 interface contextObjectModel {
-  modalData: Boolean;
-  showModal: (data: boolean) => void;
+  modalData: {}[]|{};
+  showModal: (data: Boolean|{}[]|[]) => void;
   closeModal: () => void;
 }
 // https://stackoverflow.com/questions/71948755/property-children-does-not-exist-on-type
@@ -10,15 +10,15 @@ type Props = {
 };
 
 const ContextObject = createContext<contextObjectModel>({
-  modalData: false,
-  showModal: function (data: Boolean) {},
+  modalData: [],
+  showModal: function (data: {}[]|{}) {},
   closeModal: function () {},
 });
 
 export const ContextObjectProvider: React.FC<Props> = ({ children }) => {
-  const [activeModal, setActiveModal] = useState<Boolean>(false);
+  const [activeModal, setActiveModal] = useState<Boolean|{}[]|{}>(false);
 
-  function showModalHandler(data: Boolean) {
+  function showModalHandler(data: boolean|{}[]|{}) {
     setActiveModal(data);
   }
 
