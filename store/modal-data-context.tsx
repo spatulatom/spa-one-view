@@ -1,7 +1,14 @@
 import { createContext, useState } from 'react';
+type Item = {
+  color: string;
+  name: string;
+  year: string;
+  pantone_value: string;
+  id: string;
+};
 interface contextObjectModel {
-  modalData: {}[]|{};
-  showModal: (data: Boolean|{}[]|[]) => void;
+  modalData: Item|null;
+  showModal: (data: Item) => void;
   closeModal: () => void;
 }
 // https://stackoverflow.com/questions/71948755/property-children-does-not-exist-on-type
@@ -9,21 +16,18 @@ type Props = {
   children: React.ReactNode;
 };
 
-const ContextObject = createContext<contextObjectModel>({
-  modalData: [],
-  showModal: function (data: {}[]|{}) {},
-  closeModal: function () {},
-});
+const ContextObject = createContext({} as contextObjectModel)
+
 
 export const ContextObjectProvider: React.FC<Props> = ({ children }) => {
-  const [activeModal, setActiveModal] = useState<Boolean|{}[]|{}>(false);
+  const [activeModal, setActiveModal] = useState<Item|null>(null);
 
-  function showModalHandler(data: boolean|{}[]|{}) {
+  function showModalHandler(data:Item) {
     setActiveModal(data);
   }
 
   function closeModalHandler() {
-    setActiveModal(false);
+    setActiveModal(null);
   }
 
   const context: contextObjectModel = {
