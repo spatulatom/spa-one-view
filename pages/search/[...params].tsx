@@ -179,7 +179,12 @@ export default function params() {
     );
 
     // when fetched successfully an individual item
-  } else if (data && data.constructor === Object) {
+  } else if (
+    typeof data === 'object' &&
+    !Array.isArray(data) &&
+    data !== null
+  ) {
+    const { color, id, name, year } = data;
     return (
       <div className="bg-slate-900 py-16">
         <table className="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
@@ -193,18 +198,12 @@ export default function params() {
           <tbody>
             <tr
               className="h-20"
-              style={{ backgroundColor: `${data.color}` }}
+              style={{ backgroundColor: `${color}` }}
               onClick={modalHandler(data)}
             >
-              <td className="border border-slate-700 text-center ">
-                {data.id}
-              </td>
-              <td className="border border-slate-700 text-center">
-                {data.name}
-              </td>
-              <td className="border border-slate-700 text-center">
-                {data.year}
-              </td>
+              <td className="border border-slate-700 text-center ">{id}</td>
+              <td className="border border-slate-700 text-center">{name}</td>
+              <td className="border border-slate-700 text-center">{year}</td>
             </tr>
           </tbody>
         </table>
