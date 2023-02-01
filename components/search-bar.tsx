@@ -23,9 +23,9 @@ function SearchBar() {
   }
 
   return (
-    <div class="w-full bg-white">
-      <div class="sm:w-1/5 mx-2 sm:mx-auto py-8">
-        <label for="price" class="block text-sm font-medium">
+    <div className="w-full bg-white">
+      <div className="sm:w-1/5 mx-2 sm:mx-auto py-8">
+        <label className="block text-sm font-medium">
           Search by Item id:
         </label>
         <div className="relative mt-1 rounded-md shadow-sm">
