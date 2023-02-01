@@ -5,7 +5,7 @@ function SearchBar() {
   const [input, setInput] = useState('');
   const router = useRouter();
 
-  function onChangeHandler(e) {
+  function onChangeHandler(e:React.ChangeEvent<HTMLInputElement>) {
     // when we have cleard input field
     if (!e.target.value) {
       router.push('/search/per_page=5&page=1');
@@ -18,14 +18,18 @@ function SearchBar() {
   }
 
   // to prevent letter e, E from the input field type="number"
-  function onKeyDownHandler(e) {
+  function onKeyDownHandler(e:React.KeyboardEvent) {
     return ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();
   }
 
   return (
     <div className="w-full bg-white">
       <div className="sm:w-1/5 mx-2 sm:mx-auto py-8">
+<<<<<<< HEAD:components/search-bar.js
         <label for="price" className="block text-sm font-medium">
+=======
+        <label className="block text-sm font-medium">
+>>>>>>> adding-typescript:components/search-bar.tsx
           Search by Item id:
         </label>
         <div className="relative mt-1 rounded-md shadow-sm">
