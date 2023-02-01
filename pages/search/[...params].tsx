@@ -12,8 +12,12 @@ export default function params() {
     pantone_value: string;
     id: string;
   };
+  type Details = {
+    page: number;
+    pages: number;
+  };
 
-  const [details, setDetails] = useState<{}[] | {} | null>(null);
+  const [details, setDetails] = useState<Details | null>(null);
   const [data, setData] = useState<Item | Item[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -79,6 +83,7 @@ export default function params() {
   // pagination logic:
   function paginationLinks() {
     // if(details){
+      if(details){
     const { page, pages } = details;
     if (page === 1) {
       return (
@@ -113,7 +118,7 @@ export default function params() {
           </Link>
         </div>
       );
-    }
+    }}
   }
 
   // when redirected from home page for split second we have
@@ -178,7 +183,7 @@ export default function params() {
       </div>
     );
 
-    // when fetched successfully an individual item
+    // when fetched successfully an individual item which is an object
   } else if (
     typeof data === 'object' &&
     !Array.isArray(data) &&
@@ -210,6 +215,25 @@ export default function params() {
       </div>
     );
   } else {
-    return <div>kkkk</div>;
+    return (
+      <div className="bg-slate-900 py-16">
+        <table className="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
+          <thead>
+            <tr>
+              <th className="border border-slate-600 ">Product Id</th>
+              <th className="border border-slate-600 ">Product Name</th>
+              <th className="border border-slate-600 ">Product Year</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="border border-slate-700 text-center "></td>
+              <td className="border border-slate-700 text-center"></td>
+              <td className="border border-slate-700 text-center"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    );
   }
 }
