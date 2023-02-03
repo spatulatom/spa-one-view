@@ -83,42 +83,43 @@ export default function params() {
   // pagination logic:
   function paginationLinks() {
     // if(details){
-      if(details){
-    const { page, pages } = details;
-    if (page === 1) {
-      return (
-        <div className="text-white flex space-x-4 justify-center mt-6">
-          <span>
-            <i className="text-gray-500 fa-solid fa-angles-left"></i>
-          </span>
-          <Link href="/search/per_page=5&page=2">
-            <i className="text-white fa-solid fa-angles-right"></i>
-          </Link>
-        </div>
-      );
-    } else if (page === pages) {
-      return (
-        <div className="text-white flex space-x-4 justify-center mt-6">
-          <Link href="/search/per_page=5&page=2">
-            <i className="text-white fa-solid fa-angles-left"></i>
-          </Link>
-          <span>
-            <i className="text-gray-500 fa-solid fa-angles-right"></i>
-          </span>
-        </div>
-      );
-    } else {
-      return (
-        <div className="text-white flex space-x-4 justify-center mt-6">
-          <Link href={`/search/per_page=5&page=${page - 1}`}>
-            <i className="text-white fa-solid fa-angles-left"></i>
-          </Link>
-          <Link href={`/search/per_page=5&page=${page + 1}`}>
-            <i className="text-white fa-solid fa-angles-right"></i>
-          </Link>
-        </div>
-      );
-    }}
+    if (details) {
+      const { page, pages } = details;
+      if (page === 1) {
+        return (
+          <div className="text-white flex space-x-4 justify-center mt-6">
+            <span>
+              <i className="text-gray-500 fa-solid fa-angles-left"></i>
+            </span>
+            <Link href="/search/per_page=5&page=2">
+              <i className="text-white fa-solid fa-angles-right"></i>
+            </Link>
+          </div>
+        );
+      } else if (page === pages) {
+        return (
+          <div className="text-white flex space-x-4 justify-center mt-6">
+            <Link href="/search/per_page=5&page=2">
+              <i className="text-white fa-solid fa-angles-left"></i>
+            </Link>
+            <span>
+              <i className="text-gray-500 fa-solid fa-angles-right"></i>
+            </span>
+          </div>
+        );
+      } else {
+        return (
+          <div className="text-white flex space-x-4 justify-center mt-6">
+            <Link href={`/search/per_page=5&page=${page - 1}`}>
+              <i className="text-white fa-solid fa-angles-left"></i>
+            </Link>
+            <Link href={`/search/per_page=5&page=${page + 1}`}>
+              <i className="text-white fa-solid fa-angles-right"></i>
+            </Link>
+          </div>
+        );
+      }
+    }
   }
 
   // when redirected from home page for split second we have

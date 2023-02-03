@@ -19,7 +19,7 @@ type Props = {
 const ContextObject = createContext({} as contextObjectModel)
 
 
-export const ContextObjectProvider: React.FC<Props> = ({ children }) => {
+export function ContextObjectProvider({ children }: Props){
   const [activeModal, setActiveModal] = useState<Item|null>(null);
 
   function showModalHandler(data:Item) {
