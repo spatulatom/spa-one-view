@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 function SearchBar() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState('')
   const router = useRouter();
 
   function onChangeHandler(e:React.ChangeEvent<HTMLInputElement>) {
