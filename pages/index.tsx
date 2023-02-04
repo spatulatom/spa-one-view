@@ -4,7 +4,8 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 export default function Home() {
-  return <div>index</div>;
+  return <div>
+    <h1>Welcome to Next.js</h1></div>;
 }
 
 // redirect at a built time from Home page'/' to '/search/per_page=5&page=1'-
