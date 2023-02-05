@@ -4,7 +4,7 @@ import { useEffect, useState, useContext } from 'react';
 import Link from 'next/link';
 import ContextObject from '../../store/modal-data-context';
 
-export default function params() {
+export default function Params() {
   type Item = {
     color: string;
     name: string;
@@ -21,6 +21,7 @@ export default function params() {
   const [data, setData] = useState<Item | Item[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
   const router = useRouter();
   const queryParams: string | string[] | undefined = router.query.params;
 
@@ -226,13 +227,7 @@ export default function params() {
               <th className="border border-slate-600 ">Product Year</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td className="border border-slate-700 text-center "></td>
-              <td className="border border-slate-700 text-center"></td>
-              <td className="border border-slate-700 text-center"></td>
-            </tr>
-          </tbody>
+        
         </table>
       </div>
     );
