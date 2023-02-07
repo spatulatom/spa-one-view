@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useRouter } from 'next/router';
 import { useEffect, useState, useContext } from 'react';
 import Link from 'next/link';
@@ -21,7 +22,7 @@ export default function Params() {
   const [data, setData] = useState<Item | Item[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  
+
   const router = useRouter();
   const queryParams: string | string[] | undefined = router.query.params;
 
@@ -37,36 +38,28 @@ export default function Params() {
     setLoading(true);
 
     try {
-      const response = await fetch('https://reqres.in/api/products?' + arg, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await response.json();
+      const response = await axios.get(
+        'https://reqres.in/api/products?' + arg,
+        {}
+      );
+      const { data } = response;
+      console.log('RESPONSE', response.data);
 
-      if (response.ok) {
-        // when we fetch object with more than one item we
-        if (data.page) {
-          setDetails({ page: data.page, pages: data.total_pages });
-        }
-        // when we fetch idividual item we dont setDetails
-        else {
-          setDetails(null);
-        }
-        // setData for both object with items && individula item
-        setData(data.data);
-        setError('');
-        setLoading(false);
+      // when we fetch object with more than one item we
+      if (data.page) {
+        setDetails({ page: data.page, pages: data.total_pages });
       }
-      // when response that is not 2XX and not 5XX
+      // when we fetch idividual item we dont setDetails
       else {
-        setError(
-          data.message ||
-            'Sorry, no item for your search! We only have 12 items. Try different number!'
-        );
-        setLoading(false);
+        setDetails(null);
       }
-    } catch (err) {
+      // setData for both object with items && individula item
+      setData(data.data);
+      setError('');
+      setLoading(false);
+    } catch (err: unknown) {
+      // when response that is not 2XX and not 5XX
+
       // when respones is 5XX
 
       setError('Something went wrong with the server! Try again in a minute.');
@@ -134,14 +127,14 @@ export default function Params() {
   // when fetching
   else if (!data && loading) {
     return (
-      <div className="text-center my-16">
+      <div data-testid="data" className="text-center my-16">
         <i className="fa-solid fa-spinner fa-spin fa-2xl text-white"></i>
       </div>
     );
     // when fetching finished with the error
   } else if (error) {
     return (
-      <div className="flex justify-center my-16">
+      <div data-testid="data" className="flex justify-center my-16">
         <p className="text p-4 bg-white max-w-lg">{error}</p>
       </div>
     );
@@ -149,7 +142,7 @@ export default function Params() {
     // when we fetch sussesfully an object with items
   } else if (data && data.constructor == Array) {
     return (
-      <div className="bg-slate-900 py-8">
+      <div data-testid="data" className="bg-slate-900 py-8">
         <table className="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
           <thead>
             <tr>
@@ -193,7 +186,7 @@ export default function Params() {
   ) {
     const { color, id, name, year } = data;
     return (
-      <div className="bg-slate-900 py-16">
+      <div data-testid="data" className="bg-slate-900 py-16">
         <table className="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
           <thead>
             <tr>
@@ -227,7 +220,6 @@ export default function Params() {
               <th className="border border-slate-600 ">Product Year</th>
             </tr>
           </thead>
-        
         </table>
       </div>
     );
