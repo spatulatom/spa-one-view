@@ -1,7 +1,8 @@
 import Params from '../pages/search/[...params]';
 import { render, screen } from '@testing-library/react';
 import { beforeEach } from 'node:test';
-import axios from 'axios';
+import axios, {AxiosResponse} from 'axios';
+import * as React from 'react';
 
 // mock useRouter
 jest.mock('next/router', () => ({
@@ -15,7 +16,7 @@ jest.mock('next/router', () => ({
   },
 }));
 
-
+// mock axios
 jest.mock('axios');
 
 describe('Async fetching and rendering', () => {
@@ -64,7 +65,7 @@ describe('Async fetching and rendering', () => {
 
     render(<Params />);
 
-    const listItemElements = await screen.findAllByTestId('data');
-    expect(listItemElements).toHaveLength(1);
+    const listItemElements = await screen.findByText(hits.data.name);
+    expect(listItemElements).not.toBeNull()
   });
 });

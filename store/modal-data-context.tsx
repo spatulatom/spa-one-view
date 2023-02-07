@@ -31,7 +31,7 @@ export function ContextObjectProvider({ children }: Props){
   }
 
   const context: contextObjectModel = {
-    modalData: activeModal, // { id, color, etc }
+    modalData: activeModal,
     showModal: showModalHandler,
     closeModal: closeModalHandler,
   };
