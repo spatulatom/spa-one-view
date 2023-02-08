@@ -127,7 +127,7 @@ export default function Params() {
   // when fetching
   else if (!data && loading) {
     return (
-      <div data-testid="data" className="text-center my-16">
+      <div className="text-center my-16">
         <i className="fa-solid fa-spinner fa-spin fa-2xl text-white"></i>
       </div>
     );
@@ -186,7 +186,7 @@ export default function Params() {
   ) {
     const { color, id, name, year } = data;
     return (
-      <div data-testid="data" className="bg-slate-900 py-16">
+      <div data-testid="data2" className="bg-slate-900 py-16">
         <table className="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
           <thead>
             <tr>

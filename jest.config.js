@@ -23,8 +23,9 @@ const customJestConfig = {
     '@/(.*)$': '<rootDir>/src/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
-
-  setupFilesAfterEnv: ["@testing-library/react/cleanup-after-each"]
+  transformIgnorePatterns: ["node_modules/(?!axios)/"]
+  
+  
 }
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
