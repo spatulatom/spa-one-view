@@ -24,7 +24,7 @@ export default function Params() {
   const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
-  const queryParams: string | string[] | undefined = router.query.params;
+  let queryParams: string | string[] | undefined = router.query.params;
 
   const contextObject = useContext(ContextObject);
 
@@ -142,7 +142,7 @@ export default function Params() {
     // when we fetch sussesfully an object with items
   } else if (data && data.constructor == Array) {
     return (
-      <div data-testid="data" className="bg-slate-900 py-8">
+      <div data-testid="data1" className="bg-slate-900 py-8">
         <table className="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
           <thead>
             <tr>
@@ -153,7 +153,7 @@ export default function Params() {
           </thead>
           <tbody>
             {data.map((item) => (
-              <tr
+              <tr key={item.id}
                 className="h-12 md:h-20 "
                 style={{ backgroundColor: `${item.color}` }}
                 onClick={modalHandler(item)}

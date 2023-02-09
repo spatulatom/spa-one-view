@@ -1,13 +1,12 @@
 import Params from '../pages/search/[...params]';
 import { render, screen } from '@testing-library/react';
 import { beforeEach } from 'node:test';
-import axios, {AxiosResponse} from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import mockRouter from 'next-router-mock';
 jest.mock('next/router', () => require('next-router-mock'));
-import { createDynamicRouteParser } from "next-router-mock/dynamic-routes";
-
+import { createDynamicRouteParser } from 'next-router-mock/dynamic-routes';
 
 // jest.mock('next/router', () => ({
 //   useRouter() {
@@ -21,7 +20,7 @@ import { createDynamicRouteParser } from "next-router-mock/dynamic-routes";
 // }));
 
 // mock axios
-// jest.mock('axios');
+jest.mock('axios');
 
 // const MockParams = () => {
 //   return (
@@ -31,25 +30,24 @@ import { createDynamicRouteParser } from "next-router-mock/dynamic-routes";
 //   )
 // }
 
-mockRouter.useParser(createDynamicRouteParser([
-  // These paths should match those found in the `/pages` folder:
-  
-  "/search/[...catchAll]"
-]));
+mockRouter.useParser(
+  createDynamicRouteParser([
+    // These paths should match those found in the `/pages` folder:
+
+    '/search/[...params]',
+  ])
+);
 
 describe('Async fetching and rendering', () => {
-
-  
-  it('renders posts if request succeeds', async () => {
+  it('renders posts if request succeeds with an individual item ', async () => {
     //  global.fetch = jest.fn(()=> Promise.resolve({
- 
 
-    await mockRouter.push('/search/id=2');
+    await mockRouter.push('/search/id=1');
     expect(mockRouter).toMatchObject({
-      pathname: '/search/[...catchAll]',
-    
+      pathname: '/search/[...params]',
+      query: { params: ['id=1'] },
     });
-  
+
     const hits = {
       data: {
         color: 'p1',
@@ -60,15 +58,80 @@ describe('Async fetching and rendering', () => {
       },
     };
 
+      axios.get.mockImplementationOnce(() =>
+      Promise.resolve( { data: hits })
+    )
 
-  //   axios.get.mockImplementationOnce(() =>
-  //   Promise.resolve( { data: hits })
-  // );
-
-    render(<Params/>);
+    render(<Params />);
 
     // const listItemElements = await screen.findByText(hits.data.name);
-    const listItemElements = await screen.findByTestId('data2')
-    expect(listItemElements).not.toBeNull()
+    const listItemElements = await screen.findByTestId('data2');
+    expect(listItemElements).not.toBeNull();
+  });
+});
+
+describe('Async fetching and rendering', () => {
+  it('renders posts if request succeeds with many items', async () => {
+    //  global.fetch = jest.fn(()=> Promise.resolve({
+
+    await mockRouter.push('/search/per_page=5&page=1');
+    expect(mockRouter).toMatchObject({
+      pathname: '/search/[...params]',
+      query: { params: ['per_page=5&page=1'] },
+    });
+
+    const hits = {
+      page: '1',
+      per_page: 5,
+      total: 12,
+      total_pages: 3,
+      data: [
+        {
+          id: 1,
+          name: 'cerulean',
+          year: 2000,
+          color: '#98B2D1',
+          pantone_value: '15-4020',
+        },
+        {
+          id: 2,
+          name: 'fuchsia rose',
+          year: 2001,
+          color: '#C74375',
+          pantone_value: '17-2031',
+        },
+        {
+          id: 3,
+          name: 'true red',
+          year: 2002,
+          color: '#BF1932',
+          pantone_value: '19-1664',
+        },
+        {
+          id: 4,
+          name: 'aqua sky',
+          year: 2003,
+          color: '#7BC4C4',
+          pantone_value: '14-4811',
+        },
+        {
+          id: 5,
+          name: 'tigerlily',
+          year: 2004,
+          color: '#E2583E',
+          pantone_value: '17-1456',
+        },
+      ],
+    };
+
+      axios.get.mockImplementationOnce(() =>
+      Promise.resolve( { data: hits })
+    );
+
+    render(<Params />);
+
+    // const listItemElements = await screen.findByText(hits.data.name);
+    const listItemElements = await screen.findByTestId('data1');
+    expect(listItemElements).not.toBeNull();
   });
 });
