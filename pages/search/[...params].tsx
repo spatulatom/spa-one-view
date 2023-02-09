@@ -43,7 +43,7 @@ export default function Params() {
         {}
       );
       const { data } = response;
-      console.log('RESPONSE', response.data);
+      // console.log('RESPONSE', response.data);
 
       // when we fetch object with more than one item we
       if (data.page) {
@@ -60,7 +60,7 @@ export default function Params() {
     } catch (err: unknown) {
       // when response that is not 2XX and not 5XX
 
-      // when respones is 5XX
+      // when respones is 5Xx
 
       setError('Something went wrong with the server! Try again in a minute.');
       setLoading(false);
