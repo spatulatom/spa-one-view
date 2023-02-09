@@ -14,11 +14,11 @@ jest.mock('axios');
 // mock router: https://github.com/scottrippey/next-router-mock
 mockRouter.useParser(createDynamicRouteParser(['/search/[...params]']));
 
-// one suite: 'Async fetching and rendering', two tests
+// one suite: 'Async fetching and rendering', two tests inside
 describe('Async fetching and rendering', () => {
   // this request is triggered in the app when we search for an item in the search bar
-  it('renders posts if request succeeds with one individual product, which is an object ', 
-  async () => {
+  it('renders posts if request succeeds with one individual product, which is an object ', async () => {
+    // Arrange
     await mockRouter.push('/search/id=1');
     expect(mockRouter).toMatchObject({
       pathname: '/search/[...params]',
@@ -34,18 +34,20 @@ describe('Async fetching and rendering', () => {
         id: '#88833',
       },
     };
-
     axios.get.mockImplementationOnce(() => Promise.resolve({ data: hits }));
-
     render(<Params />);
 
+    // Act
+    // ...nothing
+
+    // Assert
     const listItemElements = await screen.findByTestId('data2');
     expect(listItemElements).not.toBeNull();
   });
 
   // this request in triggerd on the first load and when pagination arrows are pressed
-  it('renders posts if request succeeds with many products, products are objects stored in the array',
-   async () => {
+  it('renders posts if request succeeds with many products, products are objects stored in the array', async () => {
+    // Arrange
     await mockRouter.push('/search/per_page=5&page=1');
     expect(mockRouter).toMatchObject({
       pathname: '/search/[...params]',
@@ -95,11 +97,13 @@ describe('Async fetching and rendering', () => {
         },
       ],
     };
-
     axios.get.mockImplementationOnce(() => Promise.resolve({ data: hits }));
-
     render(<Params />);
 
+    // Act
+    // ...nothing
+
+    // Assert
     const listItemElements = await screen.findByTestId('data1');
     expect(listItemElements).not.toBeNull();
   });
