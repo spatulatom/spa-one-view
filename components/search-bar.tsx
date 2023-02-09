@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 import { useRouter } from 'next/router';
 
 function SearchBar() {
-  const [input, setInput] = useState('')
+  const [input, setInput] = useState('');
   const router = useRouter();
 
-  function onChangeHandler(e:React.ChangeEvent<HTMLInputElement>) {
+  function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     // when we have cleard input field
     if (!e.target.value) {
       router.push('/search/per_page=5&page=1');
@@ -18,16 +18,14 @@ function SearchBar() {
   }
 
   // to prevent letter e, E from the input field type="number"
-  function onKeyDownHandler(e:React.KeyboardEvent) {
+  function onKeyDownHandler(e: React.KeyboardEvent) {
     return ['e', 'E', '+', '-'].includes(e.key) && e.preventDefault();
   }
 
   return (
     <div className="w-full bg-white">
       <div className="sm:w-1/5 mx-2 sm:mx-auto py-8">
-        <label className="block text-sm font-medium">
-          Search by Item id:
-        </label>
+        <label className="block text-sm font-medium">Search by Item id:</label>
         <div className="relative mt-1 rounded-md shadow-sm">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
             <span className="text-gray-500 sm:text-sm ">id:</span>

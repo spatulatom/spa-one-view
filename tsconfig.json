@@ -22,7 +22,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-, "__tests__/Params.test.jsx"  ],
+, "__tests__/params.test.jsx"  ],
   "exclude": [
     "node_modules"
   ]

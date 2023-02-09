@@ -7,7 +7,7 @@ describe('Home', () => {
     render(<Home />)
 
     const heading = screen.getByText(
-      'Welcome to Next.js'
+      'Welcome to Search Products App'
     )
 
     expect(heading).toBeInTheDocument()
