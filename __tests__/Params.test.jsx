@@ -4,13 +4,6 @@ import axios from 'axios';
 import * as React from 'react';
 import mockRouter from 'next-router-mock';
 
-// Resources:
-// https://testing-library.com/docs/react-testing-library/intro
-// https://www.robinwieruch.de/react-testing-library/
-// https://nextjs.org/docs/routing/dynamic-routes
-// https://nextjs.org/docs/messages/next-router-not-mounted
-// https://www.youtube.com/watch?v=7dTTFW7yACQ&list=PL4cUxeGkcC9gm4_-5UsNmLqMosM-dzuvQ&index=1
-
 // mock router: https://github.com/scottrippey/next-router-mock
 jest.mock('next/router', () => require('next-router-mock'));
 import { createDynamicRouteParser } from 'next-router-mock/dynamic-routes';
@@ -19,8 +12,8 @@ mockRouter.useParser(createDynamicRouteParser(['/search/[...params]']));
 // mock axios
 jest.mock('axios');
 
-// one suite: 'Async fetching and rendering', two tests inside
-describe('Async fetching and rendering', () => {
+// One suite: 'Dynamic routing, async fetching and rendering', two tests inside
+describe('Dynamic routing, async fetching and rendering', () => {
   // this request is triggered in the app when we search for an item in the search bar
   it('renders posts if request succeeds with one individual product, which is an object ', async () => {
     // Arrange
@@ -50,7 +43,7 @@ describe('Async fetching and rendering', () => {
     expect(listItemElements).not.toBeNull();
   });
 
-  // this request in triggerd on the first load and when pagination arrows are pressed
+  // this request in triggerd on the first render and when pagination arrows are pressed
   it('renders posts if request succeeds with many products, products are objects stored in the array', async () => {
     // Arrange
     await mockRouter.push('/search/per_page=5&page=1');
@@ -113,3 +106,12 @@ describe('Async fetching and rendering', () => {
     expect(listItemElements).not.toBeNull();
   });
 });
+
+
+// Resources:
+// https://testing-library.com/docs/react-testing-library/intro
+// https://www.robinwieruch.de/react-testing-library/
+// https://nextjs.org/docs/routing/dynamic-routes
+// https://nextjs.org/docs/messages/next-router-not-mounted
+// https://www.youtube.com/watch?v=7dTTFW7yACQ&list=PL4cUxeGkcC9gm4_-5UsNmLqMosM-dzuvQ&index=1
+// https://nextjs.org/docs/testing
