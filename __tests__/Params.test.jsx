@@ -39,7 +39,7 @@ describe('Dynamic routing, async fetching and rendering', () => {
     // ...nothing
 
     // Assert
-    const listItemElements = await screen.findByTestId('data2');
+    const listItemElements = await screen.findByTestId('individiual product');
     expect(listItemElements).not.toBeNull();
   });
 
@@ -102,7 +102,7 @@ describe('Dynamic routing, async fetching and rendering', () => {
     // ...nothing
 
     // Assert
-    const listItemElements = await screen.findByTestId('data1');
+    const listItemElements = await screen.findByTestId('array of products');
     expect(listItemElements).not.toBeNull();
   });
 });

@@ -134,7 +134,7 @@ export default function Params() {
     // when fetching finished with the error
   } else if (error) {
     return (
-      <div data-testid="data" className="flex justify-center my-16">
+      <div data-testid="error from axcios" className="flex justify-center my-16">
         <p className="text p-4 bg-white max-w-lg">{error}</p>
       </div>
     );
@@ -142,7 +142,7 @@ export default function Params() {
     // when we fetch sussesfully an object with items
   } else if (data && data.constructor == Array) {
     return (
-      <div data-testid="data1" className="bg-slate-900 py-8">
+      <div data-testid="array of products" className="bg-slate-900 py-8">
         <table className="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
           <thead>
             <tr>
@@ -186,7 +186,7 @@ export default function Params() {
   ) {
     const { color, id, name, year } = data;
     return (
-      <div data-testid="data2" className="bg-slate-900 py-16">
+      <div data-testid="individiual product" className="bg-slate-900 py-16">
         <table className="border-separate border-spacing-2 border w-8/12 text-white m-auto border-slate-500 ">
           <thead>
             <tr>
