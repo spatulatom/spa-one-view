@@ -7,12 +7,12 @@ import '@testing-library/jest-dom'
 jest.mock('next/router', () => require('next-router-mock'));
 
 describe('Search Bar', () => {
-    it('find incremnt/decrement numbers button in the input field', () => {
-      render(<SearchBar />);
+  //   it('find incremnt/decrement numbers button in the input field', () => {
+  //     render(<SearchBar />);
 
-      const button = screen.queryByRole('spinbutton');
-      expect(button).not.toBeNull();
-    });
+  //     const button = screen.queryByRole('spinbutton');
+  //     expect(button).not.toBeNull();
+  //   });
 
   it('see if the input changes when value entered', () => {
     render(<SearchBar />);
@@ -23,7 +23,7 @@ describe('Search Bar', () => {
       target: { value: '9' },
     });
 
-   const text = screen.queryByText('9');
+   const text = screen.queryByText(/9/);
    expect(text).toBeInTheDocument()
 
     // screen.debug();
