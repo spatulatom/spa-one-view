@@ -42,6 +42,7 @@ function SearchBar() {
           />
         </div>
       </div>
+      <h1>{input}</h1>
     </div>
   );
 }
