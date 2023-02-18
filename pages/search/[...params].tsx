@@ -33,7 +33,7 @@ export default function Params() {
     if (queryParams) getData(queryParams);
   }, [queryParams]);
 
-  async function getData(arg: string | string[]) {
+  async function getData(arg: string | string[]): Promise <string|string[]|void>{
     console.log('RUN');
     setLoading(true);
 
