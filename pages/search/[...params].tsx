@@ -6,6 +6,7 @@ import Link from 'next/link';
 import ContextObject from '../../store/modal-data-context';
 
 export default function Params() {
+  
   type Item = {
     color: string;
     name: string;
