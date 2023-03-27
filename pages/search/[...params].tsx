@@ -6,7 +6,6 @@ import Link from 'next/link';
 import ContextObject from '../../store/modal-data-context';
 
 export default function Params() {
-  
   type Item = {
     color: string;
     name: string;
@@ -18,6 +17,11 @@ export default function Params() {
     page: number;
     pages: number;
   };
+  type ManyItems = {
+    data: Item[] | Item;
+    page: number;
+    total_pages: number;
+  };
 
   const [details, setDetails] = useState<Details | null>(null);
   const [data, setData] = useState<Item | Item[] | null>(null);
@@ -25,7 +29,7 @@ export default function Params() {
   const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
-  let queryParams: string | string[] | undefined = router.query.params;
+  let queryParams = router.query.params;
 
   const contextObject = useContext(ContextObject);
 
@@ -34,7 +38,7 @@ export default function Params() {
     if (queryParams) getData(queryParams);
   }, [queryParams]);
 
-  async function getData(arg: string | string[]): Promise <string|string[]|void>{
+  async function getData(arg: string | string[]) {
     console.log('RUN');
     setLoading(true);
 
@@ -43,7 +47,7 @@ export default function Params() {
         'https://reqres.in/api/products?' + arg,
         {}
       );
-      const { data } = response;
+      const data: ManyItems = response.data;
       // console.log('RESPONSE', response.data);
 
       // when we fetch object with more than one item we
@@ -58,7 +62,7 @@ export default function Params() {
       setData(data.data);
       setError('');
       setLoading(false);
-    } catch (err: unknown) {
+    } catch (err) {
       // when response that is not 2XX and not 5XX
 
       // when respones is 5Xx
@@ -69,7 +73,7 @@ export default function Params() {
   }
 
   // to pass an argument into the even handler it need to return a function
-  function modalHandler(item: any) {
+  function modalHandler(item: Item) {
     return () => {
       contextObject.showModal(item);
     };
@@ -135,7 +139,10 @@ export default function Params() {
     // when fetching finished with the error
   } else if (error) {
     return (
-      <div data-testid="error from axcios" className="flex justify-center my-16">
+      <div
+        data-testid="error from axcios"
+        className="flex justify-center my-16"
+      >
         <p className="text p-4 bg-white max-w-lg">{error}</p>
       </div>
     );
@@ -154,7 +161,8 @@ export default function Params() {
           </thead>
           <tbody>
             {data.map((item) => (
-              <tr key={item.id}
+              <tr
+                key={item.id}
                 className="h-12 md:h-20 "
                 style={{ backgroundColor: `${item.color}` }}
                 onClick={modalHandler(item)}
