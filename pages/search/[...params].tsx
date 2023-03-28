@@ -38,7 +38,7 @@ export default function Params() {
     if (queryParams) getData(queryParams);
   }, [queryParams]);
 
-  async function getData(arg: string | string[]) {
+  async function getData(arg: string | string[]):Promise<ManyItems|void> {
     console.log('RUN');
     setLoading(true);
 
@@ -47,7 +47,7 @@ export default function Params() {
         'https://reqres.in/api/products?' + arg,
         {}
       );
-      const data: ManyItems = response.data;
+      const data= response.data;
       // console.log('RESPONSE', response.data);
 
       // when we fetch object with more than one item we
