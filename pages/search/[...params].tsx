@@ -17,8 +17,8 @@ export default function Params() {
     page: number;
     pages: number;
   };
-  type ManyItems = {
-    data: Item[] | Item;
+  type FetchedData = {
+    data: Item[]|Item ;
     page: number;
     total_pages: number;
   };
@@ -38,7 +38,7 @@ export default function Params() {
     if (queryParams) getData(queryParams);
   }, [queryParams]);
 
-  async function getData(arg: string | string[]):Promise<ManyItems|void> {
+  async function getData(arg: string | string[]):Promise<FetchedData|void>{
     console.log('RUN');
     setLoading(true);
 
@@ -47,7 +47,7 @@ export default function Params() {
         'https://reqres.in/api/products?' + arg,
         {}
       );
-      const data= response.data;
+      const data:FetchedData = response.data;
       // console.log('RESPONSE', response.data);
 
       // when we fetch object with more than one item we

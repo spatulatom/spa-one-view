@@ -7,7 +7,7 @@ type Item = {
   id: string;
 };
 interface contextObjectModel {
-  modalData: Item|null;
+  modalData: Item | null;
   showModal: (data: Item) => void;
   closeModal: () => void;
 }
@@ -16,13 +16,12 @@ type Props = {
   children: React.ReactNode;
 };
 
-const ContextObject = createContext({} as contextObjectModel)
+const ContextObject = createContext({} as contextObjectModel);
 
+export function ContextObjectProvider({ children }: Props) {
+  const [activeModal, setActiveModal] = useState<Item | null>(null);
 
-export function ContextObjectProvider({ children }: Props){
-  const [activeModal, setActiveModal] = useState<Item|null>(null);
-
-  function showModalHandler(data:Item) {
+  function showModalHandler(data: Item) {
     setActiveModal(data);
   }
 
@@ -39,6 +38,6 @@ export function ContextObjectProvider({ children }: Props){
   return (
     <ContextObject.Provider value={context}>{children}</ContextObject.Provider>
   );
-};
+}
 
 export default ContextObject;
