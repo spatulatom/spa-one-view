@@ -1,4 +1,4 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 
 function SearchBar() {
@@ -8,7 +8,7 @@ function SearchBar() {
   function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
     // when we have cleard input field
     if (!e.target.value) {
-      setInput('all products')
+      setInput('all products');
       router.push('/search/per_page=5&page=1');
     }
     // when we have numer in the input field
@@ -43,7 +43,9 @@ function SearchBar() {
           />
         </div>
       </div>
-     <h1 className=" font-light italic text-lg text-center mt=0 pt-0 pb-2">Search results for: {input}</h1> 
+      <h1 className=" font-light italic text-lg text-center mt=0 pt-0 pb-2">
+        Search results for: {input}
+      </h1>
     </div>
   );
 }
