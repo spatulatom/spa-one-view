@@ -17,9 +17,9 @@
 
 ### Built With
 
-* React Testin Library
-* HTML, Tailwind CSS
-* [![React][React.js]][React-url]
+* React Testing Library,
+* HTML, 
+* Tailwind CSS
 * Next.js
 * TypeScript
 * Context API
