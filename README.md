@@ -7,7 +7,7 @@
 
 
 ## About the project:
--  SPA application with just one view connected to API (https://reqres.in/api/products)endpoint to display the paginated list of products. At the top of the view, there is a  search field, which allows the user to filter results by id. The input accepts only numbers, other signs don't even appear. Below this input user can see a table displaying the following items’ properties: id, name, and year. Additionally, the background colour of each row is be taken from the colour property. After clicking on a row a modal is displayed and presents all item data. The table displays 5 items per page. Under the table, there is a pagination component, which allows switching between pages with “next” and “previous” arrows.
+-  SPA application with just one view connected to API (https://reqres.in/api/products) endpoint to display the paginated list of products. At the top of the view, there is a  search field, which allows the user to filter results by id. The input accepts only numbers, other signs don't even appear. Below this input user can see a table displaying the following items’ properties: id, name, and year. Additionally, the background colour of each row is be taken from the colour property. After clicking on a row a modal is displayed and presents all item data. The table displays 5 items per page. Under the table, there is a pagination component, which allows switching between pages with “next” and “previous” arrows.
 
  - when user inputs not existing product into the search input (situations when API endpoint returns error),  the user is informed about the error.
 - pagination and filtering are reflected in the address URL, so users can copy and share the URL with each other,
