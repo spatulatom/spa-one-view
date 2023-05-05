@@ -28,7 +28,7 @@
 * GitHub as a remote repository
 * Visual Studio Code as a local IDE & repository.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 ## Getting Started
