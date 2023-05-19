@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 function SearchBar() {
   const [input, setInput] = useState('all products');
@@ -25,7 +26,9 @@ function SearchBar() {
 
   return (
     <div className="w-full bg-white">
-      <div className="sm:w-1/5 mx-2 sm:mx-auto py-8">
+      
+      <div className="sm:w-1/5 mx-2 sm:mx-auto py-4">
+      <Link className='block mb-4 text-center uppercase rounded-md hover:bg-white hover:text-black border-black border bg-slate-600 text-white' href="/">Home</Link>
         <label className="block text-sm font-medium">Search by Item id:</label>
         <div className="relative mt-1 rounded-md shadow-sm">
           <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
