@@ -28,6 +28,7 @@ function SearchBar() {
     <div className="w-full bg-white">
       
       <div className="sm:w-1/5 mx-2 sm:mx-auto py-4">
+      <Link className='block mb-4 text-center uppercase rounded-md hover:bg-white hover:text-black border-black border bg-slate-600 text-white' href="/thinking-in-react">Thinking In React</Link>
       <Link onClick={()=>{setInput('all products')}} className='block mb-4 text-center uppercase rounded-md hover:bg-white hover:text-black border-black border bg-slate-600 text-white' href="/">Home</Link>
         <label className="block text-sm font-medium">Search by Item id:</label>
         <div className="relative mt-1 rounded-md shadow-sm">
