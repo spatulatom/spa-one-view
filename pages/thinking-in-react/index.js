@@ -6,7 +6,8 @@ function FilterableProductTable({ products }) {
   const [inStockOnly, setInStockOnly] = useState(false);
 
   return (
-    <div>
+    <div className="flex justify-center pt-3 min-h-screen bg-gray-100">
+    <div className="bg-white p-2 rounded-lg shadow-lg">
       <SearchBar 
         filterText={filterText} 
         inStockOnly={inStockOnly} 
@@ -17,6 +18,7 @@ function FilterableProductTable({ products }) {
         filterText={filterText}
         inStockOnly={inStockOnly} />
     </div>
+  </div>
   );
 }
 
@@ -47,7 +49,11 @@ function ProductTable({ products, filterText, inStockOnly }) {
   let lastCategory = null;
 
   products.forEach((product) => {
-    if (product.name.indexOf(filterText) === -1) {
+    if (
+      product.name.toLowerCase().indexOf(
+        filterText.toLowerCase()
+      ) === -1
+    ) {
       return;
     }
     if (inStockOnly && !product.stocked) {
@@ -55,14 +61,14 @@ function ProductTable({ products, filterText, inStockOnly }) {
     }
     if (product.category !== lastCategory) {
       rows.push(
-        <ProductCategoryRow 
-          category={product.category} 
+        <ProductCategoryRow
+          category={product.category}
           key={product.category} />
       );
     }
     rows.push(
-      <ProductRow 
-        product={product} 
+      <ProductRow
+        product={product}
         key={product.name} />
     );
     lastCategory = product.category;
@@ -80,6 +86,7 @@ function ProductTable({ products, filterText, inStockOnly }) {
     </table>
   );
 }
+
 
 // Low-level component
 function ProductCategoryRow({ category }) {
@@ -110,12 +117,12 @@ function ProductRow({ product }) {
 // Page component
 export default function ThinkingInReactPage() {
   const PRODUCTS = [
-    {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
-    {category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
-    {category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
-    {category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
-    {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
-    {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
+    {category: "Fruits", price: "$1", stocked: true, name: "Apple"},
+    {category: "Fruits", price: "$1", stocked: true, name: "Dragonfruit"},
+    {category: "Fruits", price: "$2", stocked: false, name: "Passionfruit"},
+    {category: "Vegetables", price: "$2", stocked: true, name: "Spinach"},
+    {category: "Vegetables", price: "$4", stocked: false, name: "Pumpkin"},
+    {category: "Vegetables", price: "$1", stocked: true, name: "Peas"}
   ];
 
   return <FilterableProductTable products={PRODUCTS} />;
